@@ -37,7 +37,7 @@ import Login from './components/login.component';
 import ProtectedPage1 from './components/protectedpage1.component';
 import ProtectedPage2 from './components/protectedpage2.component';
 import PageNotFound from './components/pagenotfound.component';
-import NoAccessWarning from './components/noaccesswarning.component';
+import AccessDenied from './components/accessdenied.component';
 
 /* container for protected pages */
 import ProtectedRouteWrapper from './common/ProtectedRouteWrapper';
@@ -45,20 +45,19 @@ import ProtectedRouteWrapper from './common/ProtectedRouteWrapper';
 /* other functions */
 import checkAuthentication from './common/checkAuthentication';
 
-/* style */
-import './App.css';
-
 /* contexts */
 import { AppContext } from "./Context.js";
 
+/* style */
+import './App.css';
+
 
 function App() {
-  const [testContextValue, setTestContextValue] = useState("State 1");
+
   console.log("App about to run checkAuthentication");
   const [globalState, setGlobalState] = useState({isAuthenticated : checkAuthentication(), anotherProperty: '123'});
 
   const toggleIsAuthorized = () => {
-    
     let updatedState = {};
     updatedState = {isAuthenticated: !globalState.isAuthenticated};
     setGlobalState(globalState => ({...globalState, ...updatedState }) );   
@@ -69,7 +68,7 @@ function App() {
       <div className="App">
         { console.log("App was rendered with globalState:", JSON.stringify(globalState))}
         <div className="componentTitle">App Component</div>
-        <div>App: testContextValue: { testContextValue}</div>
+        
         <div>App: globalState: { JSON.stringify(globalState) } </div>
 
         <button onClick={toggleIsAuthorized}>toggle isAuthorized</button>
@@ -86,7 +85,7 @@ function App() {
             </ProtectedRouteWrapper>
           }/>
 
-          <Route path="/noaccess" element={<NoAccessWarning />} />
+          <Route path="/noaccess" element={<AccessDenied />} />
           <Route path="*" element={<PageNotFound />} />
         </Routes>
       </div>

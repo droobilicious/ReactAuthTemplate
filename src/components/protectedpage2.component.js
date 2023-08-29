@@ -5,11 +5,12 @@ Requirements:
 
 */
 
+import React, { useState, useEffect, useContext   } from 'react';
+import { useNavigate, useLocation, Navigate } from "react-router-dom";
 
-import { useState, useEffect , createContext, useContext   } from 'react';
-import { BrowserRouter, Route, Routes, useNavigate, useLocation } from "react-router-dom";
-
+/* contexts */
 import { AppContext } from "../Context.js";
+
 
 const ProtectedPage = () => {
 

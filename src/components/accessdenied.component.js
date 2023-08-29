@@ -1,6 +1,6 @@
 
 
-const ProtectedRouteWarning = () => {
+const AccessDenied = () => {
 
     return (
         <div className="component protectedroutewarning" >
@@ -10,4 +10,4 @@ const ProtectedRouteWarning = () => {
     );
   }
    
-  export default ProtectedRouteWarning;
+  export default AccessDenied;
