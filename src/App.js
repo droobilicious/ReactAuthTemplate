@@ -46,7 +46,7 @@ import ProtectedRouteWrapper from './common/ProtectedRouteWrapper';
 import checkAuthentication from './common/checkAuthentication';
 
 /* contexts */
-import { AppContext } from "./Context.js";
+import { AuthContext } from "./Context.js";
 
 /* style */
 import './App.css';
@@ -55,21 +55,19 @@ import './App.css';
 function App() {
 
   console.log("App about to run checkAuthentication");
-  const [globalState, setGlobalState] = useState({isAuthenticated : checkAuthentication(), anotherProperty: '123'});
+  const [authState, setAuthState] = useState( checkAuthentication() );
 
   const toggleIsAuthorized = () => {
-    let updatedState = {};
-    updatedState = {isAuthenticated: !globalState.isAuthenticated};
-    setGlobalState(globalState => ({...globalState, ...updatedState }) );   
+    setAuthState(!authState);   
   }
 
   return (
-    <AppContext.Provider value={[globalState, setGlobalState]}>
+    <AuthContext.Provider value={[authState, setAuthState]}>
       <div className="App">
-        { console.log("App was rendered with globalState:", JSON.stringify(globalState))}
+        { console.log("App was rendered with authState:", authState)}
         <div className="componentTitle">App Component</div>
         
-        <div>App: globalState: { JSON.stringify(globalState) } </div>
+        <div>App: authState: { authState } </div>
 
         <button onClick={toggleIsAuthorized}>toggle isAuthorized</button>
         <br />
@@ -89,7 +87,7 @@ function App() {
           <Route path="*" element={<PageNotFound />} />
         </Routes>
       </div>
-    </AppContext.Provider>
+    </AuthContext.Provider>
   );
 }
 

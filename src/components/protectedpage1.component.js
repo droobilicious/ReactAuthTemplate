@@ -10,7 +10,7 @@ import React, { useState, useEffect, useContext   } from 'react';
 import { useNavigate, useLocation, Navigate } from "react-router-dom";
 
 /* contexts */
-import { AppContext } from "../Context.js";
+import { AuthContext } from "../Context.js";
 
 /* functions */
 import checkAuthentication from './../common/checkAuthentication';
@@ -20,10 +20,10 @@ import checkAuthentication from './../common/checkAuthentication';
 const ProtectedPage = () => {
   console.log("ProtectedPage is initializing");
 
-  const [globalState, setGlobalState] = useContext(AppContext);
+  const [authState, setAuthState] = useContext(AuthContext);
 
   //check the global authentication status
-  if (!globalState.isAuthenticated) {
+  if (!authState) {
     console.log("Protected page redirecting because not authenticated");
     return <Navigate to="/noaccess" replace />;
   }
@@ -34,9 +34,8 @@ const ProtectedPage = () => {
     due to the above.
   */
   if (!checkAuthentication()){
-    console.log("ProtectedRouteContainer setting Global State")
-    let updatedState = {isAuthenticated: false};
-    setGlobalState(globalState => ({...globalState, ...updatedState}) );  // partially update global state
+
+    setAuthState( false );  // partially update global state
 
     return null;
 
@@ -44,9 +43,9 @@ const ProtectedPage = () => {
 
   return  (
     <div className="component protected"  >
-      { console.log("Protected was rendered with globalState:", JSON.stringify(globalState))}
+      { console.log("Protected was rendered with authState:", authState)}
       <div className="componentTitle">Protected Page 1</div>
-      <div>Protected: globalState: { JSON.stringify(globalState) } </div>
+      <div>Protected: authState: { authState ? 'true' : 'false' } </div>
     </div>
     
   )

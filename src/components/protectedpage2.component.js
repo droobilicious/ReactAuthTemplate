@@ -9,18 +9,18 @@ import React, { useState, useEffect, useContext   } from 'react';
 import { useNavigate, useLocation, Navigate } from "react-router-dom";
 
 /* contexts */
-import { AppContext } from "../Context.js";
+import { AuthContext } from "../Context.js";
 
 
 const ProtectedPage = () => {
 
-  const [globalState, setGlobalState] = useContext(AppContext);
+  const [authState, setAuthState] = useContext(AuthContext);
 
   return  (
     <div className="component protected"  >
-      { console.log("Protected Page 2 was rendered with globalState:", JSON.stringify(globalState))}
+      { console.log("Protected Page 2 was rendered with authState:", authState)}
       <div className="componentTitle">Protected Page 2</div>
-      <div>Protected: globalState: { JSON.stringify(globalState) } </div>
+      <div>Protected: authState: { authState ? 'true' : 'false' } </div>
     </div>
     
   )

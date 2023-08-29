@@ -2,17 +2,17 @@ import { useState, useEffect, useContext } from 'react';
 import { useNavigate, useLocation } from "react-router-dom";
 
 /* contexts */
-import {  AppContext } from "./../Context.js";
+import {  AuthContext } from "./../Context.js";
 
 const Home = () => {
 
-  const [globalState, setGlobalState] = useContext(AppContext);
+  const [authState, setAuthState] = useContext(AuthContext);
 
   return  (
     <div className="component home" >
-      { console.log("Home was rendered with globalState:", JSON.stringify(globalState))}
+      { console.log("Home was rendered with authState:", authState)}
       <div className="componentTitle">Home Component</div>
-      <div>Home: globalState: { JSON.stringify(globalState) } </div>
+      <div>Home: authState: { authState ? 'true' : 'false' } </div>
     </div>
     
   )

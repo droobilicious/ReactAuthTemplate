@@ -10,7 +10,7 @@ import { useState, useEffect , useContext   } from 'react';
 import { Navigate, useNavigate, useLocation } from "react-router-dom";
 
 /* contexts */
-import {  AppContext } from "./../Context.js";
+import {  AuthContext } from "./../Context.js";
 
 
 const Login = () => {
@@ -18,11 +18,11 @@ const Login = () => {
   const location = useLocation(); //for reading location info (and message sent by other pages)
 
 
-  const [globalState, setGlobalState] = useContext(AppContext);
+  const [authState, setAuthState] = useContext(AuthContext);
   const [message, setMessage] = useState();  
 
   // check if the user is authenticated and direct if so
-  if (globalState.isAuthenticated) {
+  if (authState.isAuthenticated) {
     console.log("Login redirecting because authenticated");
     return <Navigate to="/protected1" replace />;
   }
@@ -38,12 +38,12 @@ const Login = () => {
 
   /*
   useEffect(() => { 
-    console.log("Login saw a change in global state. ", JSON.stringify(globalState));
-    if (globalState.isAuthenticated)
+    console.log("Login saw a change in global state. ", authState);
+    if (authState.isAuthenticated)
     {
         console.log("Login saw isAuthenticated become true");
     }
-  },[globalState]);*/
+  },[authState]);*/
 
   
   const processLogin = () => {
@@ -53,17 +53,17 @@ const Login = () => {
     localStorage.setItem('isAuthenticated', true );
 
     let updatedState = {isAuthenticated: true};
-    setGlobalState(globalState => ({...globalState, ...updatedState}) );  // partially update global state
-    //setGlobalState({isAuthenticated: true, "adifferentproperty": 999}); //completely replace global state in this way
+    setAuthState(true);  // partially update global state
+    //setAuthState({isAuthenticated: true, "adifferentproperty": 999}); //completely replace global state in this way
 
   }
 
 
   return  (
     <div className="component login">
-      { console.log("Login was rendered with globalState:", JSON.stringify(globalState))}
+      { console.log("Login was rendered with authState:", authState)}
       <div className="componentTitle">Login Component</div>
-      <div>Login: globalState: { JSON.stringify(globalState) } </div>
+      <div>Login: authState: { authState ? 'true' : 'false' } </div>
       { message ? <div className="error">{message}</div> : null }
       <button onClick={processLogin}>Login</button>
 

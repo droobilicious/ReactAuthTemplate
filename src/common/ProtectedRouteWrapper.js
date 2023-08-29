@@ -2,7 +2,7 @@ import { useContext } from 'react';
 import { Navigate } from "react-router-dom";
 
 /* contexts */
-import { AppContext } from "../Context.js";
+import { AuthContext } from "../Context.js";
 
 /* functions */
 import checkAuthentication from './checkAuthentication';
@@ -10,12 +10,13 @@ import checkAuthentication from './checkAuthentication';
 
 
 const ProtectedRouteContainer = ({test,children}) => {
+    
     console.log("ProtectedRouteContainer is initializing")
 
-    const [globalState, setGlobalState] = useContext(AppContext);
+    const [authState, setAuthState] = useContext(AuthContext);
 
     // redirect if not authenticated
-    if (!globalState.isAuthenticated) {
+    if (!authState) {
         console.log("ProtectedRouteContainer redirecting because not authenticated");
         return <Navigate to="/noaccess" replace />;
       }
@@ -25,12 +26,9 @@ const ProtectedRouteContainer = ({test,children}) => {
      This component will then rerender (because there was a change in global state) and
      this will cause the redirect above to be triggered
     */
+    
     if (!checkAuthentication() ){
-
-        console.log("ProtectedRouteContainer setting Global State")
-        let updatedState = {isAuthenticated: false};
-        setGlobalState(globalState => ({...globalState, ...updatedState}) );  // partially update global state
-
+        setAuthState( false ); 
         return null;
     }
 
