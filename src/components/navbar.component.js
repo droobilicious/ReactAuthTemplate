@@ -19,7 +19,6 @@ const NavBar = () => {
 
   /* move this to global function */
   const processLogout = () => {
-    console.log("processLogout");
 
     localStorage.removeItem('isAuthenticated');
 
